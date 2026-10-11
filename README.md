@@ -118,17 +118,4 @@ src/
 
 ---
 
-## 🧪 Demo Guide for Hackathon Judges
-
-1. **Dashboard Overview**: Check the remaining budget and current 3-week streak.
-2. **Instant Card Simulation**:
-   - Click **"Simulate Purchase"** on the Dashboard.
-   - Choose a preset like *Blank Street Coffee (£3.90)* or *Sainsbury's Lunch (£6.50)*.
-   - Notice the animated transaction added to the feed, budget decreasing by purchase + 2%, and ISA balance immediately increasing!
-3. **Test Over-Budget Case (Rule 4)**:
-   - In the Simulate Purchase modal, click the **"Simulate Over-Budget Purchase"** button.
-   - The hero card immediately turns red, displays a negative budget amount, and shows the streak broken to 0.
-   - Notice the 2% still successfully deposited into the ISA!
-4. **Settings (Rule 1 & 2)**:
-   - Change monthly spare money in Settings. Notice the live weekly budget calculation (`monthly / 4.3`).
-   - Notice the system notes that changes queue for next week without disrupting the active week.
+#
