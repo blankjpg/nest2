@@ -2,10 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { RotateCcw } from 'lucide-react';
 import { useNest } from '../context/NestContext';
+import { useEmail } from '../context/EmailContext';
 import { formatGBP } from '../lib/math';
 
 export const Header: React.FC = () => {
   const { savingsPot, resetDemo, isSimulating } = useNest();
+  const { disconnect, resetOnboarding } = useEmail();
 
   return (
     <header className="sticky top-0 z-30 bg-navy-950/95 backdrop-blur-sm border-b border-navy-800 px-4 py-3 sm:px-6">
@@ -37,8 +39,10 @@ export const Header: React.FC = () => {
           </Link>
 
           <button
-            onClick={() => {
+            onClick={async () => {
               if (window.confirm('Reset all demo transactions and budget to initial state?')) {
+                await disconnect();
+                resetOnboarding();
                 resetDemo();
               }
             }}

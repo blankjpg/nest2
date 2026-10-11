@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNest } from '../context/NestContext';
+import { useEmail } from '../context/EmailContext';
 import { BudgetHeader } from '../components/BudgetHeader';
 import { TransactionFeed } from '../components/TransactionFeed';
+import { SubscriptionsList } from '../components/SubscriptionsList';
 import { SimulatePurchaseModal } from '../components/SimulatePurchaseModal';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Mail } from 'lucide-react';
 
 export const Dashboard: React.FC = () => {
   const { weekState, transactions, lastSimulatedTxn, simulateNewPurchase, isLoading } = useNest();
+  const { gmailStatus } = useEmail();
   const [isSimulateOpen, setIsSimulateOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -29,12 +32,31 @@ export const Dashboard: React.FC = () => {
         onOpenCloseWeek={() => navigate('/summary')}
       />
 
+      {/* Gmail Disconnected Banner (hidden when connected) */}
+      {!gmailStatus.isConnected && (
+        <div className="p-3 rounded-lg bg-navy-900/90 border border-navy-800 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 text-xs text-slate-300">
+            <Mail className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+            <span>Connect Gmail to find receipts and subscriptions</span>
+          </div>
+          <button
+            onClick={() => navigate('/settings')}
+            className="px-2.5 py-1 rounded-md bg-navy-800 hover:bg-navy-750 text-slate-200 border border-navy-700 text-xs font-semibold whitespace-nowrap transition-colors"
+          >
+            Connect
+          </button>
+        </div>
+      )}
+
       {/* Transaction Feed */}
       <TransactionFeed
         transactions={transactions}
         lastSimulatedId={lastSimulatedTxn?.id}
         onSimulateClick={() => setIsSimulateOpen(true)}
       />
+
+      {/* Subscriptions List (shown below transactions when Gmail is connected) */}
+      <SubscriptionsList />
 
       {/* Week Summary Callout Banner */}
       <div className="p-4 rounded-lg bg-navy-900/90 border border-navy-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">

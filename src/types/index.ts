@@ -67,3 +67,19 @@ export interface SavingsPot {
   history: SavingsWeeklyPoint[];
 }
 
+export interface GmailStatus {
+  isConnected: boolean;
+  emailAddress: string | null;
+  lastScanned: string | null;
+  receiptsCount: number;
+  subscriptionsCount: number;
+}
+
+export interface SubscriptionItem {
+  id: string;
+  name: string;
+  amount: number;
+  category: string;
+  nextBillingDate: string;
+}
+

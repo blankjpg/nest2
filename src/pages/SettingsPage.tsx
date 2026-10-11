@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNest } from '../context/NestContext';
 import { weeklyBudget, formatGBP } from '../lib/math';
 import { Clock, Check } from 'lucide-react';
+import { GmailConnectCard } from '../components/GmailConnectCard';
 
 export const SettingsPage: React.FC = () => {
   const { settings, updateMonthlySpare, isLoading } = useNest();
@@ -144,6 +145,12 @@ export const SettingsPage: React.FC = () => {
             </button>
           </div>
         </form>
+      </div>
+
+      {/* Email Section */}
+      <div className="space-y-2">
+        <h2 className="text-sm font-bold text-slate-200">Email</h2>
+        <GmailConnectCard />
       </div>
     </div>
   );
