@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Sparkles, AlertTriangle, Coffee, ShoppingCart, Utensils, Train, ArrowRight } from 'lucide-react';
+import { X, Coffee, ShoppingCart, Utensils, Train, ArrowRight } from 'lucide-react';
 import type { TransactionCategory, CurrentWeekState } from '../types';
 import { calculateIsaFromPurchase, calculateBudgetDeduction, formatGBP, roundCurrency } from '../lib/math';
 
@@ -48,28 +48,28 @@ export const SimulatePurchaseModal: React.FC<SimulatePurchaseModalProps> = ({
       amount: 3.90,
       category: 'coffee',
       icon: Coffee,
-      desc: 'Morning iced matcha',
+      desc: 'Coffee run',
     },
     {
       merchant: 'Sainsbury\'s Local',
       amount: 6.50,
       category: 'supermarket',
       icon: ShoppingCart,
-      desc: 'Lunch deal & snack',
+      desc: 'Meal deal & snack',
     },
     {
       merchant: 'Dishoom Takeaway',
       amount: 24.50,
       category: 'takeaway',
       icon: Utensils,
-      desc: 'Evening dinner delivery',
+      desc: 'Dinner delivery',
     },
     {
       merchant: 'TfL Travel Charge',
       amount: 3.40,
       category: 'transport',
       icon: Train,
-      desc: 'Tube commute tap',
+      desc: 'Tube fare',
     },
   ];
 
@@ -103,62 +103,57 @@ export const SimulatePurchaseModal: React.FC<SimulatePurchaseModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-950/80 backdrop-blur-sm animate-fade-in">
       <div
-        className="relative w-full max-w-lg bg-navy-900 border border-navy-700 rounded-3xl shadow-2xl overflow-hidden animate-slide-up"
+        className="relative w-full max-w-lg bg-navy-900 border border-navy-700 rounded-xl shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="flex items-center justify-between p-5 border-b border-navy-800 bg-navy-950/40">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
-              <Sparkles className="w-4 h-4" />
-            </div>
-            <div>
-              <h3 className="font-bold text-base text-slate-100">Simulate Card Purchase</h3>
-              <p className="text-xs text-slate-400">Demo Starling 2% auto-save rule</p>
-            </div>
+        <div className="flex items-center justify-between p-4 border-b border-navy-800 bg-navy-950/40">
+          <div>
+            <h3 className="font-bold text-sm sm:text-base text-slate-100">Simulate Card Purchase</h3>
+            <p className="text-xs text-slate-400">Tests automatic 2% ISA transfer and budget deduction</p>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-xl hover:bg-navy-800 text-slate-400 hover:text-slate-200 transition-colors"
+            className="p-1 rounded-lg hover:bg-navy-800 text-slate-400 hover:text-slate-200 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Tab switch */}
-        <div className="flex p-2 bg-navy-950/50 border-b border-navy-800 gap-2">
+        <div className="flex p-2 bg-navy-950/60 border-b border-navy-800 gap-1.5">
           <button
             type="button"
             onClick={() => setTab('presets')}
-            className={`flex-1 py-2 text-xs font-semibold rounded-xl transition-all ${
+            className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition-colors ${
               tab === 'presets'
-                ? 'bg-navy-800 text-white shadow-sm'
+                ? 'bg-navy-800 text-white'
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
-            Instant Presets (1-Click)
+            Presets
           </button>
           <button
             type="button"
             onClick={() => setTab('custom')}
-            className={`flex-1 py-2 text-xs font-semibold rounded-xl transition-all ${
+            className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition-colors ${
               tab === 'custom'
-                ? 'bg-navy-800 text-white shadow-sm'
+                ? 'bg-navy-800 text-white'
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
-            Custom Amount & Merchant
+            Custom Purchase
           </button>
         </div>
 
-        <div className="p-5 max-h-[75vh] overflow-y-auto">
+        <div className="p-4 sm:p-5 max-h-[75vh] overflow-y-auto">
           {tab === 'presets' ? (
             <div className="space-y-3">
               <p className="text-xs text-slate-400">
-                Click any real-world purchase to instantly tap your card:
+                Tap a purchase to simulate a Starling card transaction:
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {presets.map((preset) => {
                   const Icon = preset.icon;
                   const isa = calculateIsaFromPurchase(preset.amount);
@@ -169,14 +164,14 @@ export const SimulatePurchaseModal: React.FC<SimulatePurchaseModalProps> = ({
                       type="button"
                       disabled={isSubmitting}
                       onClick={() => handleQuickPreset(preset)}
-                      className="flex flex-col text-left p-3 rounded-2xl bg-navy-850 hover:bg-navy-800 border border-navy-700/80 hover:border-emerald-500/50 transition-all group"
+                      className="flex flex-col text-left p-3 rounded-lg bg-navy-950/70 hover:bg-navy-800 border border-navy-800 hover:border-emerald-500/40 transition-colors"
                     >
                       <div className="flex items-center justify-between w-full mb-1">
                         <div className="flex items-center gap-2">
-                          <div className="w-7 h-7 rounded-lg bg-navy-900 flex items-center justify-center text-slate-300 group-hover:text-emerald-400">
+                          <div className="w-6 h-6 rounded bg-navy-900 flex items-center justify-center text-slate-300">
                             <Icon className="w-3.5 h-3.5" />
                           </div>
-                          <span className="text-xs font-semibold text-slate-200 group-hover:text-white">
+                          <span className="text-xs font-semibold text-slate-200">
                             {preset.merchant}
                           </span>
                         </div>
@@ -185,7 +180,7 @@ export const SimulatePurchaseModal: React.FC<SimulatePurchaseModalProps> = ({
                         </span>
                       </div>
                       <div className="flex items-center justify-between text-[11px] text-slate-400 mt-1 pt-1 border-t border-navy-800">
-                        <span className="text-emerald-400 font-medium">+{formatGBP(isa)} to ISA</span>
+                        <span className="text-emerald-400">+{formatGBP(isa)} to ISA</span>
                         <span>Uses {formatGBP(deduction)}</span>
                       </div>
                     </button>
@@ -193,43 +188,39 @@ export const SimulatePurchaseModal: React.FC<SimulatePurchaseModalProps> = ({
                 })}
               </div>
 
-              {/* Special Hackathon Demo Trigger: Push Over Budget */}
-              <div className="mt-4 pt-3 border-t border-navy-800">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-semibold text-rose-400 flex items-center gap-1.5">
-                    <AlertTriangle className="w-3.5 h-3.5" />
-                    Hackathon Demo Shortcut:
-                  </span>
-                  <span className="text-[11px] text-slate-400">Rule 4 demonstration</span>
+              {/* Hackathon Demo Trigger: Push Over Budget */}
+              <div className="mt-3 pt-3 border-t border-navy-800">
+                <div className="text-xs font-semibold text-rose-400 mb-1.5">
+                  Over-budget demo (Rule 4):
                 </div>
                 <button
                   type="button"
                   disabled={isSubmitting}
                   onClick={() =>
                     handleQuickPreset({
-                      merchant: 'Selfridges Weekend Splurge',
+                      merchant: 'Weekend Shopping',
                       amount: amountToOverBudget,
                       category: 'shopping',
                     })
                   }
-                  className="w-full flex items-center justify-between p-3 rounded-2xl bg-rose-950/30 hover:bg-rose-950/60 border border-rose-500/40 text-left transition-all group"
+                  className="w-full flex items-center justify-between p-3 rounded-lg bg-rose-950/25 hover:bg-rose-950/50 border border-rose-500/40 text-left transition-colors"
                 >
                   <div>
-                    <div className="text-xs font-bold text-rose-300 group-hover:text-rose-200">
+                    <div className="text-xs font-bold text-rose-300">
                       Simulate Over-Budget Purchase ({formatGBP(amountToOverBudget)})
                     </div>
-                    <div className="text-[11px] text-slate-400">
-                      Pushes remaining budget below £0, resets streak to 0, 2% still saved to ISA
+                    <div className="text-[11px] text-slate-400 mt-0.5">
+                      Sets budget negative and breaks streak to 0. 2% is still saved to ISA.
                     </div>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-rose-400 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 text-rose-400" />
                 </button>
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3.5">
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                <label className="block text-xs font-semibold text-slate-300 mb-1">
                   Merchant Name
                 </label>
                 <input
@@ -237,18 +228,18 @@ export const SimulatePurchaseModal: React.FC<SimulatePurchaseModalProps> = ({
                   value={merchant}
                   onChange={(e) => setMerchant(e.target.value)}
                   placeholder="e.g. Pret, Tesco, Uber"
-                  className="w-full bg-navy-950 border border-navy-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors"
+                  className="w-full bg-navy-950 border border-navy-700 rounded-lg px-3 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500"
                   required
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2.5">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  <label className="block text-xs font-semibold text-slate-300 mb-1">
                     Amount (£)
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-2.5 text-slate-400 font-bold text-sm">
+                    <span className="absolute left-3 top-2 text-slate-400 font-bold text-sm">
                       £
                     </span>
                     <input
@@ -258,20 +249,20 @@ export const SimulatePurchaseModal: React.FC<SimulatePurchaseModalProps> = ({
                       value={amountStr}
                       onChange={(e) => setAmountStr(e.target.value)}
                       placeholder="0.00"
-                      className="w-full bg-navy-950 border border-navy-700 rounded-xl pl-8 pr-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 tabular-nums transition-colors"
+                      className="w-full bg-navy-950 border border-navy-700 rounded-lg pl-7 pr-3 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 tabular-nums"
                       required
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  <label className="block text-xs font-semibold text-slate-300 mb-1">
                     Category
                   </label>
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value as TransactionCategory)}
-                    className="w-full bg-navy-950 border border-navy-700 rounded-xl px-3 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-emerald-500 transition-colors"
+                    className="w-full bg-navy-950 border border-navy-700 rounded-lg px-2.5 py-2 text-sm text-slate-100 focus:outline-none focus:border-emerald-500"
                   >
                     <option value="coffee">Coffee</option>
                     <option value="supermarket">Supermarket</option>
@@ -286,30 +277,30 @@ export const SimulatePurchaseModal: React.FC<SimulatePurchaseModalProps> = ({
 
               {/* Dynamic Math Preview Box */}
               <div
-                className={`p-3.5 rounded-2xl border transition-all ${
+                className={`p-3 rounded-lg border text-xs ${
                   willCauseOverBudget
-                    ? 'bg-rose-950/30 border-rose-500/40'
+                    ? 'bg-rose-950/20 border-rose-500/40'
                     : 'bg-navy-950/70 border-navy-800'
                 }`}
               >
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
-                  nest Rule 3 Breakdown:
+                <div className="font-semibold text-slate-400 mb-1.5 uppercase text-[11px]">
+                  Calculation breakdown:
                 </div>
-                <div className="space-y-1.5 text-xs">
+                <div className="space-y-1">
                   <div className="flex justify-between text-slate-300">
-                    <span>Card purchase price:</span>
+                    <span>Card purchase:</span>
                     <span className="font-semibold tabular-nums">{formatGBP(parsedAmount)}</span>
                   </div>
                   <div className="flex justify-between text-emerald-400">
-                    <span>+ 2% auto-sent to ISA:</span>
+                    <span>+ 2% sent to ISA:</span>
                     <span className="font-bold tabular-nums">+{formatGBP(previewIsa)}</span>
                   </div>
                   <div className="flex justify-between text-slate-200 pt-1 border-t border-navy-800 font-semibold">
-                    <span>Total budget deduction:</span>
+                    <span>Budget deduction:</span>
                     <span className="tabular-nums">-{formatGBP(previewDeduction)}</span>
                   </div>
                   <div className="flex justify-between items-center pt-1 border-t border-navy-800">
-                    <span className="text-slate-400">Resulting budget:</span>
+                    <span className="text-slate-400">Remaining budget:</span>
                     <span
                       className={`font-bold tabular-nums ${
                         willCauseOverBudget ? 'text-rose-400' : 'text-slate-100'
@@ -321,20 +312,18 @@ export const SimulatePurchaseModal: React.FC<SimulatePurchaseModalProps> = ({
                 </div>
 
                 {willCauseOverBudget && (
-                  <div className="flex items-center gap-2 mt-2 pt-2 border-t border-rose-500/30 text-rose-300 text-xs">
-                    <AlertTriangle className="w-4 h-4 flex-shrink-0" />
-                    <span>This purchase will break your current streak and drop you over budget.</span>
-                  </div>
+                  <p className="mt-2 pt-1 border-t border-rose-500/30 text-rose-300 text-[11px]">
+                    This purchase exceeds your weekly budget and will reset your streak.
+                  </p>
                 )}
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting || parsedAmount <= 0}
-                className="w-full bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-navy-950 font-bold py-3 rounded-xl shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center gap-2"
+                className="w-full bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-navy-950 font-bold py-2.5 rounded-lg transition-colors text-xs sm:text-sm"
               >
-                <Sparkles className="w-4 h-4 stroke-[2.5]" />
-                <span>Simulate Purchase</span>
+                Simulate Purchase
               </button>
             </form>
           )}

@@ -33,10 +33,10 @@ import { applyPurchase as calculatePurchase, closeWeek as calculateCloseWeek, ro
  */
 
 const STORAGE_KEYS = {
-  TRANSACTIONS: 'nest_transactions_v1',
-  WEEK_STATE: 'nest_week_state_v1',
-  SAVINGS_POT: 'nest_savings_pot_v1',
-  SETTINGS: 'nest_settings_v1',
+  TRANSACTIONS: 'nest_transactions_v2',
+  WEEK_STATE: 'nest_week_state_v2',
+  SAVINGS_POT: 'nest_savings_pot_v2',
+  SETTINGS: 'nest_settings_v2',
 };
 
 // Internal in-memory store initialized from localStorage or defaults
@@ -181,6 +181,14 @@ class NestStore {
   }
 
   resetAll(): void {
+    try {
+      localStorage.removeItem(STORAGE_KEYS.SETTINGS);
+      localStorage.removeItem(STORAGE_KEYS.TRANSACTIONS);
+      localStorage.removeItem(STORAGE_KEYS.WEEK_STATE);
+      localStorage.removeItem(STORAGE_KEYS.SAVINGS_POT);
+    } catch {
+      // Ignore
+    }
     this.settings = INITIAL_SETTINGS;
     this.transactions = generateInitialTransactions();
     this.weekState = generateInitialWeekState(this.transactions, this.settings);

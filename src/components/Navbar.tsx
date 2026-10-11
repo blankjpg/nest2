@@ -49,7 +49,7 @@ export const Navbar: React.FC = () => {
                 to={item.to}
                 end={item.to === '/'}
                 className={({ isActive }) =>
-                  `flex flex-col items-center gap-1 py-1.5 px-3 rounded-xl transition-all ${
+                  `flex flex-col items-center gap-1 py-1.5 px-3 rounded-lg transition-all ${
                     isActive
                       ? 'text-emerald-400 font-semibold'
                       : 'text-slate-400 hover:text-slate-300'

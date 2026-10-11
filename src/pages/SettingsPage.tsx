@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNest } from '../context/NestContext';
 import { weeklyBudget, formatGBP } from '../lib/math';
-import { Settings, Clock, Sparkles, Check, AlertCircle } from 'lucide-react';
+import { Clock, Check } from 'lucide-react';
 
 export const SettingsPage: React.FC = () => {
   const { settings, updateMonthlySpare, isLoading } = useNest();
@@ -17,8 +17,8 @@ export const SettingsPage: React.FC = () => {
 
   if (isLoading || !settings) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
-        <div className="h-64 rounded-3xl bg-navy-900/50 animate-pulse border border-navy-800" />
+      <div className="max-w-4xl mx-auto px-4 py-6 space-y-4">
+        <div className="h-60 rounded-lg bg-navy-900/50 animate-pulse border border-navy-800" />
       </div>
     );
   }
@@ -42,45 +42,42 @@ export const SettingsPage: React.FC = () => {
   const presets = [300, 430, 500, 650];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 pb-24 space-y-6 animate-fade-in">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-5 pb-20 space-y-5 animate-fade-in">
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white flex items-center gap-2.5">
-          <Settings className="w-7 h-7 text-emerald-400" />
-          <span>Budget Settings</span>
+        <h1 className="text-xl sm:text-2xl font-bold text-white">
+          Settings
         </h1>
-        <p className="text-xs sm:text-sm text-slate-400 mt-1">
-          Adjust your monthly spare money. nest automatically divides it into your weekly allowance.
+        <p className="text-xs text-slate-400 mt-0.5">
+          Configure your monthly spare money and weekly budget allowance.
         </p>
       </div>
 
       {/* Main Settings Card */}
-      <div className="rounded-3xl bg-navy-900 border border-navy-700/80 p-6 sm:p-8 space-y-6 shadow-xl">
+      <div className="rounded-xl bg-navy-900 border border-navy-800 p-5 sm:p-6 space-y-5">
         {/* Pending Change Alert Notice */}
         {settings.hasPendingBudgetChange && settings.nextMonthSpareMoney && (
-          <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-3">
-            <Clock className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+          <div className="p-3.5 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-start gap-2.5">
+            <Clock className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
             <div className="text-xs">
               <span className="font-bold text-amber-300 block">Pending Budget Update</span>
               <p className="text-amber-200/80 mt-0.5">
-                You have queued a new monthly amount of{' '}
-                <strong>{formatGBP(settings.nextMonthSpareMoney)}</strong> ({formatGBP(pendingWeeklyBudget!)}
-                /week). Under Rule 1, this change takes effect when the current week is closed.
+                Queued new amount of <strong>{formatGBP(settings.nextMonthSpareMoney)}/month</strong> ({formatGBP(pendingWeeklyBudget!)}/week). Takes effect when current week is closed.
               </p>
             </div>
           </div>
         )}
 
-        <form onSubmit={handleSave} className="space-y-6">
+        <form onSubmit={handleSave} className="space-y-5">
           <div>
-            <label className="block text-sm font-bold text-slate-200 mb-1.5">
+            <label className="block text-xs font-bold text-slate-200 mb-1">
               Monthly Spare Money (£)
             </label>
-            <p className="text-xs text-slate-400 mb-3">
-              The amount you have left after rent, bills, and fixed commitments.
+            <p className="text-xs text-slate-400 mb-2.5">
+              Enter your monthly disposable income after fixed bills and rent.
             </p>
 
-            <div className="relative max-w-sm">
-              <span className="absolute left-4 top-3 text-slate-400 font-bold text-base">
+            <div className="relative max-w-xs">
+              <span className="absolute left-3.5 top-2.5 text-slate-400 font-bold text-sm">
                 £
               </span>
               <input
@@ -90,20 +87,20 @@ export const SettingsPage: React.FC = () => {
                 value={monthlyInput}
                 onChange={(e) => setMonthlyInput(e.target.value)}
                 placeholder="430"
-                className="w-full bg-navy-950 border border-navy-700 rounded-2xl pl-9 pr-4 py-3 text-lg font-bold text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 tabular-nums transition-colors"
+                className="w-full bg-navy-950 border border-navy-700 rounded-lg pl-8 pr-3.5 py-2 text-base font-bold text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 tabular-nums"
                 required
               />
             </div>
 
             {/* Quick Presets */}
-            <div className="flex items-center gap-2 mt-3">
+            <div className="flex items-center gap-1.5 mt-2.5">
               <span className="text-xs text-slate-400">Presets:</span>
               {presets.map((preset) => (
                 <button
                   key={preset}
                   type="button"
                   onClick={() => setMonthlyInput(preset.toString())}
-                  className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-navy-800 hover:bg-navy-700 text-slate-300 border border-navy-700 transition-colors"
+                  className="px-2 py-0.5 rounded text-xs font-medium bg-navy-800 hover:bg-navy-750 text-slate-300 border border-navy-700"
                 >
                   {formatGBP(preset)}
                 </button>
@@ -112,51 +109,37 @@ export const SettingsPage: React.FC = () => {
           </div>
 
           {/* Live Weekly Budget Preview Box */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-navy-950/80 border border-navy-800 space-y-2">
+          <div className="p-4 rounded-lg bg-navy-950/70 border border-navy-800 space-y-1.5">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                Live Weekly Budget Calculation
-              </span>
-              <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
-                Monthly ÷ 4.3
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Weekly Budget (Monthly ÷ 4.3)
               </span>
             </div>
 
-            <div className="flex items-baseline gap-2 pt-1">
-              <span className="text-3xl sm:text-4xl font-extrabold text-emerald-400 tabular-nums">
+            <div className="flex items-baseline gap-2 pt-0.5">
+              <span className="text-3xl font-extrabold text-emerald-400 tabular-nums">
                 {formatGBP(calculatedWeekly)}
               </span>
               <span className="text-xs font-semibold text-slate-400">/ week</span>
             </div>
 
-            <p className="text-xs text-slate-400 pt-1 border-t border-navy-800">
-              Rule 2 divides your monthly spare money by <strong>4.3</strong> (the average number of weeks in a month) for consistent weekly allowances.
+            <p className="text-xs text-slate-400 pt-1.5 border-t border-navy-800/80">
+              Changes apply from next week. Current active week stays at {formatGBP(currentWeeklyBudget)}/week.
             </p>
           </div>
 
-          {/* Important Rule Notice */}
-          <div className="p-4 rounded-2xl bg-navy-950/40 border border-navy-800/80 flex items-start gap-3">
-            <AlertCircle className="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5" />
-            <p className="text-xs text-slate-400">
-              <strong className="text-slate-300">Note:</strong> Changes apply from next week. Your current active week remains budgeted at <strong>{formatGBP(currentWeeklyBudget)}/week</strong>.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-3">
+          <div>
             <button
               type="submit"
-              className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-navy-950 font-bold px-6 py-3 rounded-2xl shadow-lg shadow-emerald-500/20 transition-all"
+              className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-navy-950 font-bold px-4 py-2 rounded-lg text-xs sm:text-sm transition-colors"
             >
               {savedSuccess ? (
                 <>
                   <Check className="w-4 h-4 stroke-[3]" />
-                  <span>Changes Queued for Next Week!</span>
+                  <span>Queued for next week</span>
                 </>
               ) : (
-                <>
-                  <Sparkles className="w-4 h-4 stroke-[2.5]" />
-                  <span>Update Monthly Amount</span>
-                </>
+                <span>Save Changes</span>
               )}
             </button>
           </div>
@@ -165,4 +148,3 @@ export const SettingsPage: React.FC = () => {
     </div>
   );
 };
-

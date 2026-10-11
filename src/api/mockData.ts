@@ -6,29 +6,23 @@ export const INITIAL_SETTINGS: UserSettings = {
   hasPendingBudgetChange: false,
 };
 
-// 26 realistic UK transactions spread across Monday through Sunday
+// 14 realistic UK transactions spread across the week totaling ~£72.95 spent,
+// which uses ~£74.41 of the £100 weekly allowance, leaving ~£25.59 in budget.
 const RAW_MOCK_TRANSACTIONS = [
   { merchant: 'Pret A Manger', category: 'coffee' as const, amount: 3.85, daysAgo: 6, hour: 8, min: 25 },
   { merchant: 'TfL Travel Charge', category: 'transport' as const, amount: 2.80, daysAgo: 6, hour: 8, min: 55 },
-  { merchant: 'Tesco Express', category: 'supermarket' as const, amount: 7.40, daysAgo: 6, hour: 13, min: 10 },
-  { merchant: 'Spotify UK', category: 'subscriptions' as const, amount: 11.99, daysAgo: 5, hour: 6, min: 0 },
-  { merchant: 'Gail\'s Bakery', category: 'coffee' as const, amount: 4.60, daysAgo: 5, hour: 9, min: 15 },
-  { merchant: 'TfL Travel Charge', category: 'transport' as const, amount: 3.40, daysAgo: 5, hour: 18, min: 20 },
-  { merchant: 'Boots UK', category: 'shopping' as const, amount: 6.25, daysAgo: 4, hour: 12, min: 45 },
-  { merchant: 'Sainsbury\'s Local', category: 'supermarket' as const, amount: 14.80, daysAgo: 4, hour: 17, min: 30 },
-  { merchant: 'Uber', category: 'transport' as const, amount: 8.50, daysAgo: 4, hour: 22, min: 15 },
-  { merchant: 'Blank Street Coffee', category: 'coffee' as const, amount: 3.90, daysAgo: 3, hour: 8, min: 40 },
-  { merchant: 'TfL Travel Charge', category: 'transport' as const, amount: 2.80, daysAgo: 3, hour: 9, min: 5 },
-  { merchant: 'Deliveroo (Nando\'s)', category: 'takeaway' as const, amount: 18.50, daysAgo: 3, hour: 19, min: 40 },
-  { merchant: 'Costa Coffee', category: 'coffee' as const, amount: 4.10, daysAgo: 2, hour: 10, min: 15 },
-  { merchant: 'M&S Simply Food', category: 'supermarket' as const, amount: 8.95, daysAgo: 2, hour: 13, min: 20 },
-  { merchant: 'PureGym', category: 'subscriptions' as const, amount: 19.99, daysAgo: 2, hour: 16, min: 0 },
-  { merchant: 'Waterstones', category: 'shopping' as const, amount: 9.99, daysAgo: 1, hour: 14, min: 10 },
-  { merchant: 'Lime Bike', category: 'transport' as const, amount: 3.75, daysAgo: 1, hour: 18, min: 5 },
-  { merchant: 'Franco Manca', category: 'takeaway' as const, amount: 12.50, daysAgo: 1, hour: 20, min: 30 },
-  { merchant: 'Pret A Manger', category: 'coffee' as const, amount: 3.85, daysAgo: 0, hour: 8, min: 35 },
-  { merchant: 'TfL Travel Charge', category: 'transport' as const, amount: 2.80, daysAgo: 0, hour: 9, min: 10 },
-  { merchant: 'Greggs', category: 'takeaway' as const, amount: 3.20, daysAgo: 0, hour: 12, min: 40 },
+  { merchant: 'Tesco Express', category: 'supermarket' as const, amount: 7.40, daysAgo: 5, hour: 13, min: 10 },
+  { merchant: 'Blank Street Coffee', category: 'coffee' as const, amount: 3.90, daysAgo: 5, hour: 16, min: 20 },
+  { merchant: 'TfL Travel Charge', category: 'transport' as const, amount: 2.80, daysAgo: 4, hour: 9, min: 10 },
+  { merchant: 'Boots UK', category: 'shopping' as const, amount: 5.20, daysAgo: 4, hour: 12, min: 45 },
+  { merchant: 'Sainsbury\'s Local', category: 'supermarket' as const, amount: 11.50, daysAgo: 3, hour: 17, min: 30 },
+  { merchant: 'TfL Travel Charge', category: 'transport' as const, amount: 3.40, daysAgo: 3, hour: 18, min: 40 },
+  { merchant: 'Gail\'s Bakery', category: 'coffee' as const, amount: 4.20, daysAgo: 2, hour: 9, min: 15 },
+  { merchant: 'Deliveroo (Nando\'s)', category: 'takeaway' as const, amount: 14.50, daysAgo: 2, hour: 19, min: 30 },
+  { merchant: 'Costa Coffee', category: 'coffee' as const, amount: 3.60, daysAgo: 1, hour: 10, min: 15 },
+  { merchant: 'Greggs', category: 'takeaway' as const, amount: 2.90, daysAgo: 1, hour: 13, min: 5 },
+  { merchant: 'TfL Travel Charge', category: 'transport' as const, amount: 2.80, daysAgo: 0, hour: 8, min: 45 },
+  { merchant: 'M&S Food', category: 'supermarket' as const, amount: 4.10, daysAgo: 0, hour: 12, min: 30 },
 ];
 
 export function generateInitialTransactions(): Transaction[] {
@@ -78,15 +72,15 @@ export function generateInitialWeekState(
     budgetRemaining,
     totalSpent,
     totalSavedFromPurchases,
-    streak: 3, // 3-week active streak
+    streak: budgetRemaining >= 0 ? 3 : 0,
     isOverBudget: budgetRemaining < 0,
   };
 }
 
 export const INITIAL_SAVINGS_POT: SavingsPot = {
-  totalBalance: 247.38,
-  fromPurchases: 64.18,
-  fromLeftoverBudget: 183.20,
+  totalBalance: 176.36,
+  fromPurchases: 47.66,
+  fromLeftoverBudget: 128.70,
   history: [
     {
       weekNumber: 1,
@@ -115,10 +109,10 @@ export const INITIAL_SAVINGS_POT: SavingsPot = {
     {
       weekNumber: 4,
       weekLabel: 'Week 4 (Current)',
-      fromPurchases: 17.98,
-      fromLeftover: 54.50,
-      totalWeekSavings: 72.48,
-      cumulativeTotal: 247.38,
+      fromPurchases: 1.46,
+      fromLeftover: 0,
+      totalWeekSavings: 1.46,
+      cumulativeTotal: 176.36,
     },
   ],
 };
