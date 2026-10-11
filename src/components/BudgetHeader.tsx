@@ -82,11 +82,11 @@ export const BudgetHeader: React.FC<BudgetHeaderProps> = ({
           <p className="text-xs text-slate-400 mt-1">
             {isOver ? (
               <span className="text-rose-300/90 font-medium">
-                2% is still saved to your ISA, but your streak will reset when closing the week.
+                2% is still saved to your savings account, but your streak will reset when closing the week.
               </span>
             ) : (
               <span>
-                Finish Sunday with £0 or more to deposit remaining budget into your ISA pot.
+                Finish Sunday with £0 or more to deposit remaining budget into your savings account.
               </span>
             )}
           </p>
@@ -141,7 +141,7 @@ export const BudgetHeader: React.FC<BudgetHeaderProps> = ({
           </div>
           <div className="bg-navy-950/70 rounded-md p-2.5 border border-navy-800">
             <span className="text-[11px] text-emerald-400 block">
-              2% to ISA
+              2% to savings
             </span>
             <span className="text-xs sm:text-sm font-semibold text-emerald-400 tabular-nums">
               +{formatGBP(weekState.totalSavedFromPurchases)}

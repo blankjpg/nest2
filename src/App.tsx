@@ -9,6 +9,8 @@ import { Dashboard } from './pages/Dashboard';
 import { WeekSummaryPage } from './pages/WeekSummaryPage';
 import { SavingsPotPage } from './pages/SavingsPotPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { HuddleHiveChat } from './components/HuddleHiveChat';
+import { MonthlySummaryPage } from './pages/MonthlySummaryPage';
 
 const AppShell: React.FC = () => {
   const { hasOnboarded } = useEmail();
@@ -25,11 +27,13 @@ const AppShell: React.FC = () => {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/summary" element={<WeekSummaryPage />} />
+          <Route path="/monthly-summary" element={<MonthlySummaryPage />} />
           <Route path="/savings" element={<SavingsPotPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
+      <HuddleHiveChat />
     </div>
   );
 };

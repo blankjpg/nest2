@@ -45,7 +45,7 @@ export const SavingsPotPage: React.FC = () => {
           Savings Pot
         </h1>
         <p className="text-xs text-slate-400 mt-0.5">
-          Starling Cash ISA savings generated from card purchases and unspent budget.
+          Spaces savings account generated from card purchases and unspent budget.
         </p>
       </div>
 
@@ -53,13 +53,13 @@ export const SavingsPotPage: React.FC = () => {
       <div className="rounded-xl bg-navy-900 border border-navy-800 p-5 sm:p-6 space-y-5">
         <div>
           <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-            Total ISA Balance
+            Total savings balance
           </span>
           <div className="text-3xl sm:text-4xl font-extrabold text-emerald-400 tabular-nums mt-1">
             {formatGBP(savingsPot.totalBalance)}
           </div>
           <p className="text-xs text-slate-400 mt-1">
-            Starling Cash ISA account (pure cash, no investments)
+            Spaces savings account (cash only, no investments)
           </p>
         </div>
 
@@ -104,7 +104,7 @@ export const SavingsPotPage: React.FC = () => {
             Savings per Week
           </h3>
           <p className="text-xs text-slate-400">
-            Weekly 2% purchase savings and leftover budget swept to ISA
+            Weekly 2% purchase savings and leftover budget swept into your savings account
           </p>
         </div>
 

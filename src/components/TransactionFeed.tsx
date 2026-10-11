@@ -47,7 +47,7 @@ export const TransactionFeed: React.FC<TransactionFeedProps> = ({
             </span>
           </div>
           <p className="text-xs text-slate-400 mt-0.5">
-            2% of each purchase is sent automatically to your ISA pot.
+            2% of each purchase is sent automatically to your savings account.
           </p>
         </div>
 
@@ -88,7 +88,7 @@ export const TransactionFeed: React.FC<TransactionFeedProps> = ({
           </h3>
           <p className="text-xs text-slate-400 max-w-sm mx-auto mb-3">
             {transactions.length === 0
-              ? 'When card purchases occur, they appear here along with the 2% stashed into your ISA.'
+              ? 'When card purchases occur, they appear here along with the 2% stashed into your savings account.'
               : 'Try selecting a different filter.'}
           </p>
           {transactions.length === 0 && (

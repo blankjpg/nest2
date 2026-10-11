@@ -1,11 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Calendar, PiggyBank, Settings, Award } from 'lucide-react';
+import { Calendar, PiggyBank, Settings, Award, CalendarDays } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const navItems = [
     { to: '/', label: 'This Week', icon: Calendar },
     { to: '/summary', label: 'Week Summary', icon: Award },
+    { to: '/monthly-summary', label: 'Monthly', icon: CalendarDays },
     { to: '/savings', label: 'Savings Pot', icon: PiggyBank },
     { to: '/settings', label: 'Settings', icon: Settings },
   ];
@@ -66,4 +67,3 @@ export const Navbar: React.FC = () => {
     </>
   );
 };
-

@@ -83,7 +83,7 @@ export const TransactionItem: React.FC<TransactionItemProps> = ({ transaction, i
         </div>
       </div>
 
-      {/* Right: Amount & Saved to ISA badge */}
+      {/* Right: Amount & savings badge */}
       <div className="flex flex-col items-end gap-1 flex-shrink-0 pl-3">
         <span className="text-sm font-bold text-slate-100 tabular-nums">
           -{formatGBP(transaction.amount)}
@@ -92,7 +92,7 @@ export const TransactionItem: React.FC<TransactionItemProps> = ({ transaction, i
         {/* The 2% saved tag */}
         <div
           className="inline-flex items-center px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium tabular-nums"
-          title={`2% automatically sent to your ISA: +${formatGBP(transaction.savedToIsa)} (Budget deducted: ${formatGBP(
+          title={`2% automatically sent to your savings account: +${formatGBP(transaction.savedToIsa)} (Budget deducted: ${formatGBP(
             transaction.budgetDeduction
           )})`}
         >

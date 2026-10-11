@@ -13,16 +13,12 @@ export const Header: React.FC = () => {
     <header className="sticky top-0 z-30 bg-navy-950/95 backdrop-blur-sm border-b border-navy-800 px-4 py-3 sm:px-6">
       <div className="max-w-4xl mx-auto flex items-center justify-between">
         {/* Brand */}
-        <Link to="/" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-emerald-500 text-navy-950 font-black flex items-center justify-center text-sm shadow-sm">
-            n
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-lg text-white tracking-tight">nest</span>
-            <span className="text-[10px] font-semibold uppercase px-1.5 py-0.5 rounded bg-navy-800 text-slate-300 border border-navy-700">
-              Starling
-            </span>
-          </div>
+        <Link to="/" className="flex items-center" aria-label="nest by Starling Engine home">
+          <img
+            src="/nest-mascot.png"
+            alt="nest by Starling Engine"
+            className="h-12 w-auto max-w-[112px] object-contain"
+          />
         </Link>
 
         {/* Action / Pot pill */}
@@ -30,9 +26,9 @@ export const Header: React.FC = () => {
           <Link
             to="/savings"
             className="flex items-center gap-2 bg-navy-900 hover:bg-navy-850 border border-navy-700 px-3 py-1.5 rounded-lg transition-colors"
-            title="View ISA Savings Pot"
+            title="View Spaces savings account"
           >
-            <span className="text-xs text-slate-400 font-medium hidden sm:inline">ISA:</span>
+            <span className="text-xs text-slate-400 font-medium hidden sm:inline">Savings:</span>
             <span className="text-xs sm:text-sm font-bold text-emerald-400 tabular-nums">
               {savingsPot ? formatGBP(savingsPot.totalBalance) : '£0.00'}
             </span>

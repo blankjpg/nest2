@@ -110,7 +110,7 @@ export const SimulatePurchaseModal: React.FC<SimulatePurchaseModalProps> = ({
         <div className="flex items-center justify-between p-4 border-b border-navy-800 bg-navy-950/40">
           <div>
             <h3 className="font-bold text-sm sm:text-base text-slate-100">Simulate Card Purchase</h3>
-            <p className="text-xs text-slate-400">Tests automatic 2% ISA transfer and budget deduction</p>
+            <p className="text-xs text-slate-400">Tests automatic 2% savings transfer and budget deduction</p>
           </div>
           <button
             onClick={onClose}
@@ -180,7 +180,7 @@ export const SimulatePurchaseModal: React.FC<SimulatePurchaseModalProps> = ({
                         </span>
                       </div>
                       <div className="flex items-center justify-between text-[11px] text-slate-400 mt-1 pt-1 border-t border-navy-800">
-                        <span className="text-emerald-400">+{formatGBP(isa)} to ISA</span>
+                        <span className="text-emerald-400">+{formatGBP(isa)} to savings</span>
                         <span>Uses {formatGBP(deduction)}</span>
                       </div>
                     </button>
@@ -210,7 +210,7 @@ export const SimulatePurchaseModal: React.FC<SimulatePurchaseModalProps> = ({
                       Simulate Over-Budget Purchase ({formatGBP(amountToOverBudget)})
                     </div>
                     <div className="text-[11px] text-slate-400 mt-0.5">
-                      Sets budget negative and breaks streak to 0. 2% is still saved to ISA.
+                      Sets budget negative and breaks streak to 0. 2% is still saved to your savings account.
                     </div>
                   </div>
                   <ArrowRight className="w-4 h-4 text-rose-400" />
@@ -292,7 +292,7 @@ export const SimulatePurchaseModal: React.FC<SimulatePurchaseModalProps> = ({
                     <span className="font-semibold tabular-nums">{formatGBP(parsedAmount)}</span>
                   </div>
                   <div className="flex justify-between text-emerald-400">
-                    <span>+ 2% sent to ISA:</span>
+                    <span>+ 2% sent to savings:</span>
                     <span className="font-bold tabular-nums">+{formatGBP(previewIsa)}</span>
                   </div>
                   <div className="flex justify-between text-slate-200 pt-1 border-t border-navy-800 font-semibold">

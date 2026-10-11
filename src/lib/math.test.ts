@@ -6,6 +6,8 @@ import {
   applyPurchase,
   closeWeek,
   formatGBP,
+  monthlySavingsTotal,
+  investAmount,
 } from './math';
 import type { CurrentWeekState, UserSettings } from '../types';
 
@@ -214,5 +216,45 @@ describe('Currency formatters', () => {
     expect(formatGBP(50)).toBe('£50.00');
     expect(formatGBP(-6)).toBe('-£6.00');
     expect(formatGBP(1.5, { showPlus: true })).toBe('+£1.50');
+  });
+});
+
+describe('Monthly savings calculations', () => {
+  it('totals purchase and leftover savings across the month', () => {
+    expect(
+      monthlySavingsTotal([
+        { fromPurchases: 2.25, fromLeftover: 15 },
+        { fromPurchases: 1.5, fromLeftover: 0 },
+        { fromPurchases: 3.14, fromLeftover: 8.5 },
+        { fromPurchases: 0.61, fromLeftover: 11 },
+      ])
+    ).toBe(42);
+  });
+
+  it('includes purchase savings but no leftover for an over-budget week', () => {
+    expect(
+      monthlySavingsTotal([
+        { fromPurchases: 2.4, fromLeftover: 10 },
+        { fromPurchases: 3.1, fromLeftover: 0 },
+      ])
+    ).toBe(15.5);
+  });
+
+  it('returns zero when the month has no completed weeks', () => {
+    expect(monthlySavingsTotal([])).toBe(0);
+  });
+});
+
+describe('Demo investment amount calculations', () => {
+  it('calculates 100%, 50%, 20%, and a custom percentage of savings', () => {
+    expect(investAmount(125.55, 100)).toBe(125.55);
+    expect(investAmount(125.55, 50)).toBe(62.78);
+    expect(investAmount(125.55, 20)).toBe(25.11);
+    expect(investAmount(125.55, 35)).toBe(43.94);
+  });
+
+  it('rejects invalid totals and percentages', () => {
+    expect(() => investAmount(-1, 50)).toThrow(RangeError);
+    expect(() => investAmount(100, 101)).toThrow(RangeError);
   });
 });

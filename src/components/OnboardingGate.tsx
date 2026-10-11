@@ -36,13 +36,11 @@ export const OnboardingGate: React.FC = () => {
         {/* Brand / Welcome Header */}
         <div className="space-y-1">
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-8 h-8 rounded-lg bg-emerald-500 text-navy-950 font-black flex items-center justify-center text-sm shadow-sm">
-              n
-            </div>
-            <span className="font-bold text-lg text-white tracking-tight">nest</span>
-            <span className="text-[10px] font-semibold uppercase px-1.5 py-0.5 rounded bg-navy-800 text-slate-300 border border-navy-700">
-              Starling
-            </span>
+            <img
+              src="/nest-mascot.png"
+              alt="nest by Starling Engine"
+              className="h-16 w-auto max-w-[150px] object-contain"
+            />
           </div>
           <h1 className="text-xl sm:text-2xl font-bold text-white">
             Welcome to nest
@@ -162,4 +160,3 @@ export const OnboardingGate: React.FC = () => {
     </div>
   );
 };
-

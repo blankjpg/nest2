@@ -4,6 +4,7 @@ import type {
   TransactionCategory,
   UserSettings,
   WeekCloseSummary,
+  SavingsWeeklyPoint,
 } from '../types';
 
 /**
@@ -11,6 +12,25 @@ import type {
  */
 export function roundCurrency(val: number): number {
   return Math.round((val + Number.EPSILON) * 100) / 100;
+}
+
+export function monthlySavingsTotal(
+  weeks: Pick<SavingsWeeklyPoint, 'fromPurchases' | 'fromLeftover'>[]
+): number {
+  return roundCurrency(
+    weeks.reduce((total, week) => total + week.fromPurchases + week.fromLeftover, 0)
+  );
+}
+
+export function investAmount(total: number, percent: number): number {
+  if (!Number.isFinite(total) || total < 0) {
+    throw new RangeError('Total savings must be a non-negative number');
+  }
+  if (!Number.isFinite(percent) || percent < 0 || percent > 100) {
+    throw new RangeError('Investment percentage must be between 0 and 100');
+  }
+
+  return roundCurrency((total * percent) / 100);
 }
 
 /**
@@ -134,14 +154,14 @@ export function closeWeek(
   const newStreak = wasSuccessful ? currentState.streak + 1 : 0;
 
   const headlineMessage = wasSuccessful
-    ? `You stayed under by ${formatGBP(leftoverMovedToIsa)}. It's now in your ISA`
+    ? `You stayed under by ${formatGBP(leftoverMovedToIsa)}. It's now in your savings account`
     : `You went ${formatGBP(Math.abs(currentState.budgetRemaining))} over, but you still saved ${formatGBP(
         currentState.totalSavedFromPurchases
       )} this week`;
 
   const subMessage = wasSuccessful
     ? `Awesome consistency! Your streak is now ${newStreak} week${newStreak === 1 ? '' : 's'}.`
-    : `Don't worry, every week is a fresh slate. Your automatic 2% savings are safe in your pot.`;
+    : `Don't worry, every week is a fresh slate. Your automatic 2% savings are safe in your savings account.`;
 
   const summary: WeekCloseSummary = {
     weekNumber: currentState.weekNumber,

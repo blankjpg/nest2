@@ -86,14 +86,14 @@ export const WeekSummaryPage: React.FC = () => {
             </div>
 
             <div className="bg-navy-950/70 rounded-md p-3 border border-navy-800">
-              <span className="text-xs text-emerald-400 block">2% From Purchases</span>
+              <span className="text-xs text-emerald-400 block">2% from purchases</span>
               <span className="text-base font-bold text-emerald-400 tabular-nums">
                 +{formatGBP(closedSummary.totalSavedFromPurchases)}
               </span>
             </div>
 
             <div className="bg-navy-950/70 rounded-md p-3 border border-navy-800">
-              <span className="text-xs text-teal-400 block">Leftover Moved to ISA</span>
+              <span className="text-xs text-teal-400 block">Leftover Moved to Savings</span>
               <span className="text-base font-bold text-teal-400 tabular-nums">
                 +{formatGBP(closedSummary.leftoverMovedToIsa)}
               </span>
@@ -102,7 +102,7 @@ export const WeekSummaryPage: React.FC = () => {
 
           {/* Total Stashed Row */}
           <div className="flex items-center justify-between p-3 rounded-md bg-navy-950 border border-navy-800 text-xs sm:text-sm">
-            <span className="font-semibold text-slate-300">Total added to ISA this week:</span>
+            <span className="font-semibold text-slate-300">Total added to savings account this week:</span>
             <span className="font-bold text-emerald-400 text-base tabular-nums">
               +{formatGBP(totalAddedToIsa)}
             </span>
@@ -194,7 +194,7 @@ export const WeekSummaryPage: React.FC = () => {
 
           <div className="bg-navy-950/70 rounded-md p-3 border border-navy-800">
             <span className="text-xs text-slate-400 block">
-              {isCurrentUnder ? 'Leftover to Move to ISA' : 'Over Budget Amount'}
+              {isCurrentUnder ? 'Leftover to move to savings' : 'Over budget amount'}
             </span>
             <span
               className={`text-base font-bold tabular-nums ${
@@ -213,11 +213,11 @@ export const WeekSummaryPage: React.FC = () => {
           </span>
           {isCurrentUnder ? (
             <p className="text-slate-400">
-              Any remaining budget ({formatGBP(weekState.budgetRemaining)}) will be moved to your Starling ISA pot, and your streak will increase from {weekState.streak} to {weekState.streak + 1} weeks.
+              Any remaining budget ({formatGBP(weekState.budgetRemaining)}) will be moved to your Spaces savings account, and your streak will increase from {weekState.streak} to {weekState.streak + 1} weeks.
             </p>
           ) : (
             <p className="text-slate-400">
-              No leftover budget is available to move, and your streak will reset to 0 weeks. Your {formatGBP(weekState.totalSavedFromPurchases)} saved from 2% purchases remains safe in your pot.
+              No leftover budget is available to move, and your streak will reset to 0 weeks. Your {formatGBP(weekState.totalSavedFromPurchases)} saved from 2% purchases remains safe in your savings account.
             </p>
           )}
         </div>

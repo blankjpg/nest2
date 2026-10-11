@@ -63,7 +63,7 @@ export const Dashboard: React.FC = () => {
         <div>
           <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-300">End of week preview</h4>
           <p className="text-xs text-slate-400 mt-0.5">
-            Test the Sunday close: move leftover balance to your ISA pot and check your streak status.
+            Test the Sunday close: move leftover balance to your savings account and check your streak status.
           </p>
         </div>
         <button

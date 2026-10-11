@@ -67,6 +67,40 @@ export interface SavingsPot {
   history: SavingsWeeklyPoint[];
 }
 
+export interface MonthlySavingsWeek {
+  weekNumber: number;
+  totalSpent: number;
+  fromPurchases: number;
+  fromLeftover: number;
+  wasSuccessful: boolean;
+  streakResult: number;
+}
+
+export interface MonthlySummaryData {
+  weeks: MonthlySavingsWeek[];
+  spendingByMerchant: Record<string, number>;
+}
+
+export interface Trading212DemoAccount {
+  connected: true;
+  cashBalance: number;
+}
+
+export interface DemoOrder {
+  id: string;
+  ticker: string;
+  amountGbp: number;
+  date: string;
+  status: 'Filled (demo)';
+}
+
+export interface StockIdea {
+  companyName: string;
+  ticker: string;
+  reason: string;
+  riskNote: string;
+}
+
 export interface GmailStatus {
   isConnected: boolean;
   emailAddress: string | null;
@@ -82,4 +116,3 @@ export interface SubscriptionItem {
   category: string;
   nextBillingDate: string;
 }
-

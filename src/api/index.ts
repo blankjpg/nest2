@@ -14,6 +14,16 @@ import {
 } from './mockData';
 import { applyPurchase as calculatePurchase, closeWeek as calculateCloseWeek, roundCurrency } from '../lib/math';
 
+export {
+  connectTrading212,
+  disconnectTrading212,
+  getDemoAccount,
+  placeDemoOrder,
+  getDemoOrders,
+} from './trading212';
+export { getStockIdeas } from './ai';
+export { getMonthlySummary } from './monthly';
+
 /**
  * =========================================================================
  * NEST API / DATA SERVICE LAYER
